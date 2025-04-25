@@ -16,7 +16,7 @@
       </div>
 
       <!-- NAVIGATION MENU -->
-      <nav class="hidden md:flex space-x-10">
+      <nav x-data="{open:false}" class="hidden md:flex space-x-10">
           {% for link in main_menu_linklist %}
             
             {% if link.links != blank %}
