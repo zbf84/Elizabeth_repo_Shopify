@@ -16,7 +16,7 @@
       </div>
 
       <!-- NAVIGATION MENU -->
-      <nav x-data="{open:false}" class="hidden md:flex space-x-10">
+      <nav x-data="{open:false}" class="hidden md:flex -ml-5">
           {% for link in main_menu_linklist %}
             {% assign link_handle = link.handle | replace: '-','_' %}
             {% if link.links != blank %}
