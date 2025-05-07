@@ -1,10 +1,78 @@
-{% paginate blog.articles by 3 %}
-  {% for article in blog.articles %}
-    <div class="article-preview">
-      {% if article.image %}
-        <img width= 500, height= 300 src="{{ article.image | image_url: width:1000,height:500 }}" alt="{{ article.title }}">
-      {% endif %}
+<div class="py-4">
+  {% paginate blog.articles by section.settings.number_of_blog_posts %}
+    <h1 class="text-5xl font-bold text-center">{{ blog.title }}</h1>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {% for article in blog.articles %}
+          <div class="w-full py-6 px-3">
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+              {% if article.image %}
+                <a href="{{ article.url }}">
+                  <img class="w-full h-80 object-cover" width= 300, height= 200 src="{{ article.image | image_url: width:250,height:200 }}" alt="{{ article.title }}">
+                </a>
+                
+              {% else %}
+                {{ 'image' |placeholder_svg_tag: 'w-full h-80 object-cover bg-gray-100' }}
+              {% endif %}
+              <div class="p-4">
+                <h1 class="text-xl font-medium my-4">{{ article.title }}</h1>
+                {% if article.excerpt.size > 0 %}
+                  <p>{{ article.excerpt | strip_html | truncatewords: 15}}</p>
+                {% else %}
+                  <p>{{ article.content | strip_html | truncatewords: 15}}</p>
+                {% endif %}
+                <a href="{{ article.url }}" class="font-medium  text-blue-600 hover:text-blue-800">{{ section.settings.blog_read_more }}</a>
+              </div>
+                
+              
+            </div>
+            
+          </div>
+        {% endfor %}
+
+
+      </div>
     </div>
     
-  {% endfor %}
-{% endpaginate %}
+  {% endpaginate %}
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "text",
+      "id": "blog_read_more",
+      "label": "Read More label",
+      "default": "Read more"
+    },
+    {
+      "type": "text",
+      "id": "blog_title",
+      "label": "Blog Title",
+      "default": "My Blog"
+    },
+    {
+      "type": "text",
+      "id": "blog_description",
+      "label": "Blog Description",
+      "default": "This is my blog where I share my thoughts and ideas."
+    },
+    {
+      "type": "range",
+      "id": "number_of_blog_posts",
+      "step": 1,
+      "min": 1,
+      "max": 6,
+      "default": 3,
+      "label": 
+      "Number of blog posts to show",
+    }
+  ],
+  
+}
+
+{% endschema %}
