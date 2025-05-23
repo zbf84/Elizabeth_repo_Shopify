@@ -1,14 +1,17 @@
-{% paginate collection.products by 6 %}
-  {% for product in collection.products %}
-    {% if product.featured_image %}
-      <img src="{{ product.featured_image | image_url: width:250, height:300 }}" alt="{{ product.featured_image.alt }}" width="500" height="350">
-    {% endif %}
-    <span>{{ product.vendor }}</span>
-    <a href="{{ product.url }}">{{ product.title }}</a>
-    <p>{{ product.price | money }}</p>
-  {% else %}
-    <p>There are no products inside of this collection</p>
-  {% endfor %}
+<div class="px-4 py-8">
+  {% paginate collection.products by 6 %}
+    <h1 class="text-3xl text-center"> {{ collection.title }}</h1>
+    {% for product in collection.products %}
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | image_url: width:250, height:300 }}" alt="{{ product.featured_image.alt }}" width="500" height="350">
+      {% endif %}
+      <span>{{ product.vendor }}</span>
+      <a href="{{ product.url }}">{{ product.title }}</a>
+      <p>{{ product.price | money }}</p>
+    {% else %}
+      <p>There are no products inside of this collection</p>
+    {% endfor %}
 
-  {% render 'pagination', pagination: paginate %}
-{% endpaginate %}
+    {% render 'pagination', pagination: paginate %}
+  {% endpaginate %}
+</div>
