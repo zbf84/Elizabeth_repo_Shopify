@@ -16,7 +16,9 @@
     "contact_form_iYcbeC": {
       "type": "contact-form",
       "name": "Contact Form",
-      "settings": {}
+      "settings": {
+        "title": "Welcome to Message section"
+      }
     }
   },
   "order": [
