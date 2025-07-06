@@ -1,1 +1,4 @@
-hello world
+{% case media.media_type % }
+    {% when 'image' %}
+        <img width="500px" height="400px" src="{{ media | image_url }}" alt="">
+{% endcase %}
