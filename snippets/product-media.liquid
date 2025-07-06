@@ -1,4 +1,0 @@
-{% case media.media_type % }
-    {% when 'image' %}
-        <img width="1100px" height="600px" src="{{ media | image_url }}" alt="{{ media.preview_image.alt }}" class="w-full h-full object-cover">
-{% endcase %}
