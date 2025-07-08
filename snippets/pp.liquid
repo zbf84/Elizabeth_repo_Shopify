@@ -1,5 +1,18 @@
-{% case media.media_type % }
-    {% when 'image' %}
-        <img  src="{{ media | image_url: width:650,height:300 }}" alt="{{ media.preview_image.alt }}" width=1100 height=600 class="w-full h-full object-cover">
-    {% else %}    
-{% endcase %}
+{% for media in product.media %}
+    {% case media.media_type % }
+        {% when  'image' %}
+            <div>
+                <img class="w-full h-full object-cover"  src="{{ media | image_url: width:650, height:300 }}" alt="{{ media.preview_image.alt }}" width=600, height=300 >
+            </div>
+         {% when 'external_video' %}
+            <div>
+                {{ media |external_video_tag:class: 'w-full h-80' }}
+            </div>
+      
+        
+   
+       
+   
+    {% endcase %}
+{% endfor %}
+
