@@ -20,7 +20,7 @@
             {% endfor %}
         </div>
         <div class="md:hidden">
-            <div class="swiper h-94">
+            <div class="swiper h-94"> 
                 <div class="swiper-wrapper">
                     {% for media in product.media %}
                         <div class="swiper-slide">
@@ -44,9 +44,9 @@
 
 <script>
     const swiper = new Swiper('.swiper',{
-        direction:'horizontal'})
+        direction:'horizontal',
         pagination:{
-            el:'.swiper-pagination'}
+            el:'.swiper-pagination'},
         navigation:{
             prevEl:'.swiper-button-prev',
             nextEl:'.swiper-button-next'}
