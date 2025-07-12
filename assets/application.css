@@ -129,6 +129,9 @@
   :-moz-focusring {
     outline: auto;
   }
+  .line-through{
+    text-decoration: line-through;
+  }
   progress {
     vertical-align: baseline;
   }
