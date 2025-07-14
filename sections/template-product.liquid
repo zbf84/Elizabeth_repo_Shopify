@@ -53,11 +53,9 @@
                 {% endif %}    
             </div>
             <div class="my-3">
-                {% if product.has_only_default_variant %}
+                {%  product.has_only_default_variant %}
             </div>
-            {% if product_price.price < product_price.compare_at_price  %}
-               <span class="px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4">Sale</span>
-            {% endif %}
+            
         {% endform %}
     </div>
    </div>
