@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-
+{% assign selected_variant = product.selected_or_first_available_variant %}
 <style>
     .swiper-button-prev, .swiper-button-next { color: black; top: auto !important; height: 20px; }
     .swiper-button-prev::after, .swiper-button-next::after { font-size: 20px; }
     .swiper-pagination { color: black; bottom: 0 !important; }
     .swiper-pagination-bullet-active { background: black !important; }
+    .product--information { height:fit-content;}
 </style>
 
 
@@ -36,8 +37,10 @@
             </div>
         </div>
     </div>
-    <div class="product--information">
+    <div class="product--information sticky top-5 p-2">
         {% form 'product', product %}
+            <input type="hidden" name="id" value="{{ selected_variant.id}}">
+            
             <div class="my-3">
                 <span class="text-xs text-gray-500">{{ product.vendor }}</span>
             </div>
@@ -45,10 +48,10 @@
                 <h1 class="text-3xl text-gray-900">{{ product.title }}</h1> 
             </div>
             <div class="my-3">
-                {% assign product_price= product.selected_or_first_available_variant %}
-                <span class="text-base text-gray-500 line-through">{{ product_price.compare_at_price | money }}</span>
-                <span class="text-lg text-gray-900">{{ product_price.price | money }}</span>  
-                {% if product_price.price < product_price.compare_at_price %}
+                
+                <span class="text-base text-gray-500 line-through">{{ selected_variant.compare_at_price | money }}</span>
+                <span class="text-lg text-gray-900">{{ selected_variant.price | money }}</span>  
+                {% if selected_variant.price < selected_variant.compare_at_price %}
                     <span class ="px-5 py-1 text-sm bg-red-500 rounded-full text-white mx-4">Sale</span>
                 {% endif %}    
             </div>
@@ -85,6 +88,19 @@
             <div class="my-3">
                 <p class="text-gray-700">{{ product.description }}</p>
             </div>
+            <div class="my-3">
+                <button type="submit" name="add" class="w-full px-6 py-4 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2"
+                    {% if selected_variant.available == false %}
+                        disabled
+                    {% endif %}
+                >
+                    {% if selected_variant ==false %}
+                        Sold Out
+                    {% else %}
+                        Add to cart
+                    {% endif %}
+                </button>
+            </div>
         {% endform %}
     </div>
    </div>
@@ -100,3 +116,45 @@
             nextEl:'.swiper-button-next'}
         })
 </script>
+{% schema %}
+{
+    "name": "Product",
+    "blocks": [
+        {
+            "type":"vendor",
+            "name":"Vendor",
+            "limit": 1
+        },
+        {
+            "type":"title",
+            "name":"Title",
+            "limit": 1
+        },
+        {
+            "type":"price",
+            "name":"Price",
+            "limit": 1
+        },
+        {
+            "type":"variant_selector",
+            "name":"Variant Selector ",
+            "limit": 1
+        },
+        {
+            "type":"quantity",
+            "name":"Quantity",
+            "limit": 1
+        },
+        {
+            "type":"description",
+            "name":"Description",
+            "limit": 1
+        },
+        {
+            "type":"checkout_buttons",
+            "name":"Checkout Buttons",
+            "limit": 1
+        },
+    ]
+}
+{% endschema %}
