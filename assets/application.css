@@ -218,6 +218,7 @@
   }
   .sticky {
     position: sticky;
+    display: block;
   }
   .inset-x-0 {
     inset-inline: calc(var(--spacing) * 0);
